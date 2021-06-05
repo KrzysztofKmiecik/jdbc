@@ -17,12 +17,13 @@ public class Start {
         videoDao.saveVideo(3L,"docker","kmk.pl/docker");
         videoDao.saveVideo(4L,"CI","kmk.pl/CI");*/
 
-        videoDao.updateVideo(new Video(4L, "CI/CD", "kmk.pl/CI-CD"));
+      /*  videoDao.updateVideo(new Video(4L, "CI/CD", "kmk.pl/CI-CD"));
         videoDao.deleteVideo(3L);
 
         List<Video> videoList = videoDao.findAll();
-        videoList.forEach(System.out::println);
+        videoList.forEach(System.out::println);*/
 
+        System.out.println(videoDao.findById(4L));
     }
 
 }

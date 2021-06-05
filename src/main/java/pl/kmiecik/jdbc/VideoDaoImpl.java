@@ -2,8 +2,11 @@ package pl.kmiecik.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +34,27 @@ public class VideoDaoImpl implements VideoDao {
         String sql = "SELECT * FROM videos";
         List<Video> videoList = new ArrayList<>();
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
-        maps.stream().forEach(element -> videoList.add(new Video(
+        maps.forEach(element -> videoList.add(new Video(
                 Long.parseLong(String.valueOf(element.get("video_id"))),
                 String.valueOf(element.get("title")),
                 String.valueOf(element.get("url"))
         )));
         return videoList;
+    }
+
+    @Override
+    public Video findById(long id) {
+        String sql="SELECT * FROM videos WHERE videos.video_id=?";
+        Video myVideo = jdbcTemplate.queryForObject(sql, new RowMapper<>() {
+            @Override
+            public Video mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Video(resultSet.getLong("video_id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("url"));
+            }
+        }, id);
+
+        return myVideo;
     }
 
     @Override
