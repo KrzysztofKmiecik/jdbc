@@ -43,10 +43,10 @@ public class DbConfig {
         return new JdbcTemplate(dataSource);
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    /*@EventListener(ApplicationReadyEvent.class)
     public void init(){
         String sql="CREATE TABLE videos(video_id int, title varchar(255),url varchar(255),PRIMARY KEY (video_id)) ";
         getJdbcApplication().update(sql);
-    }
+    }*/
 
 }
