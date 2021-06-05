@@ -17,6 +17,8 @@ public class Start {
         videoDao.saveVideo(3L,"docker","kmk.pl/docker");
         videoDao.saveVideo(4L,"CI","kmk.pl/CI");*/
 
+        videoDao.updateVideo(new Video(4L,"CI/CD","kmk.pl/CI-CD"));
+
         List<Video> videoList = videoDao.findAll();
         videoList.forEach(System.out::println);
 

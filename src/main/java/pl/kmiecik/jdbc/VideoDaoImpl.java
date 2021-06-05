@@ -40,8 +40,9 @@ public class VideoDaoImpl implements VideoDao {
     }
 
     @Override
-    public void updateVideo() {
-
+    public void updateVideo(Video newVideo) {
+        String sql="UPDATE videos SET videos.title=?,videos.url=? WHERE videos.video_id=?  ";
+        jdbcTemplate.update(sql,newVideo.getTitle(),newVideo.getUrl(),newVideo.getVideoId());
     }
 
     @Override
