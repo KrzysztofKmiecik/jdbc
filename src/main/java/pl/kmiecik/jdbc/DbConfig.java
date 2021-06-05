@@ -1,5 +1,6 @@
 package pl.kmiecik.jdbc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +14,9 @@ import javax.sql.DataSource;
 public class DbConfig {
 
 
-    @Bean
+
+  /* jeśli mam 1 datasource to w properties ale jak mam kilka to wtedy przez beean
+  @Bean
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.url("jdbc:mysql://remotemysql.com:3306/yIqoXdM9OI");
@@ -21,11 +24,18 @@ public class DbConfig {
         dataSourceBuilder.password("DslCDdzS3u");
         dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
         return dataSourceBuilder.build();
+    }*/
+
+    private final DataSource dataSource;
+
+    @Autowired
+    public DbConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Bean
     public JdbcTemplate getJdbcApplication(){
-        return new JdbcTemplate(getDataSource());
+        return new JdbcTemplate(dataSource);
     }
 
     @EventListener(ApplicationReadyEvent.class)
