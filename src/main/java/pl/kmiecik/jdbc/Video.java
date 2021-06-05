@@ -1,6 +1,8 @@
 package pl.kmiecik.jdbc;
 
 
+import java.util.StringJoiner;
+
 public class Video {
 
   private long videoId;
@@ -43,4 +45,12 @@ public class Video {
     this.url = url;
   }
 
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", Video.class.getSimpleName() + "[", "]")
+            .add("videoId=" + videoId)
+            .add("title='" + title + "'")
+            .add("url='" + url + "'")
+            .toString();
+  }
 }
